@@ -1,5 +1,5 @@
 import { User } from "src/users/entities/user.entity";
-import { Column, Entity, ManyToMany, PrimaryGeneratedColumn } from "typeorm";
+import { Column, Entity, JoinTable, ManyToMany, PrimaryGeneratedColumn } from "typeorm";
 
 @Entity()
 export class PromoCode {
@@ -16,5 +16,6 @@ export class PromoCode {
     expirationDate: Date;
 
     @ManyToMany(() => User, user => user.promoCodes)
+    @JoinTable()
     users: User[];
 }

@@ -3,22 +3,31 @@ import { CreatePromoCodeDto } from './dto/create-promo-code.dto';
 import { UpdatePromoCodeDto } from './dto/update-promo-code.dto';
 import { InjectRepository } from '@nestjs/typeorm';
 import { PromoCode } from './entities/promo-code.entity';
-import { Repository } from 'typeorm';
+import { User } from '../users/entities/user.entity';
+import { Repository, In } from 'typeorm';
 
 @Injectable()
 export class PromoCodesService {
   constructor(
     @InjectRepository(PromoCode)
-    private promoCodeRepository: Repository<PromoCode>
+    private promoCodeRepository: Repository<PromoCode>,
+    @InjectRepository(User)
+    private userRepository: Repository<User>,
   ) {}
 
   async create(createPromoCodeDto: CreatePromoCodeDto) {
-    const promoCode = this.promoCodeRepository.create(createPromoCodeDto);
+    const { userIds, ...payload } = createPromoCodeDto;
+    const promoCode = this.promoCodeRepository.create(payload);
+
+    if (userIds?.length) {
+      promoCode.users = await this.userRepository.findBy({ id: In(userIds) });
+    }
+
     return this.promoCodeRepository.save(promoCode);
   }
 
   async findAll() {
-    return this.promoCodeRepository.find({relations: ['users']});
+    return this.promoCodeRepository.find({ relations: ['users'] });
   }
 
   async findOne(id: number) {
@@ -26,8 +35,20 @@ export class PromoCodesService {
   }
 
   async update(id: number, updatePromoCodeDto: UpdatePromoCodeDto) {
-    await this.promoCodeRepository.update(id, updatePromoCodeDto);
-    return this.findOne(id);
+    const { userIds, ...payload } = updatePromoCodeDto as any;
+    const preloadData: any = { id, ...payload };
+
+    if (userIds !== undefined) {
+      preloadData.users = userIds.length ? await this.userRepository.findBy({ id: In(userIds) }) : [];
+    }
+
+    const promoCode = await this.promoCodeRepository.preload(preloadData);
+
+    if (!promoCode) {
+      return null;
+    }
+
+    return this.promoCodeRepository.save(promoCode);
   }
 
   async remove(id: number) {

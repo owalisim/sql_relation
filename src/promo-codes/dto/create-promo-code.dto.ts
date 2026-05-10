@@ -1,4 +1,4 @@
-import { IsDate, IsDateString, IsNegative, IsNotEmpty, IsString, Min } from "class-validator";
+import { IsArray, IsDateString, IsInt, IsNotEmpty, IsOptional, IsString, ArrayUnique, Min } from "class-validator";
 
 export class CreatePromoCodeDto {
     @IsString()
@@ -10,4 +10,10 @@ export class CreatePromoCodeDto {
 
     @IsDateString()
     expirationDate: Date;
+
+    @IsOptional()
+    @IsArray()
+    @ArrayUnique()
+    @IsInt({ each: true })
+    userIds?: number[];
 }

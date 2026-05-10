@@ -17,11 +17,11 @@ export class UsersService {
   }
 
    async findAll() {
-    return await this.usersRepository.find({relations: ['orders']});
+    return await this.usersRepository.find({relations: ['orders', 'promoCodes']});
   }
 
   async findOne(id: number) {
-    return await this.usersRepository.findOne({ where: { id }, relations: ['orders'] });
+    return await this.usersRepository.findOne({ where: { id }, relations: ['orders', 'promoCodes'] });
   }
 
  async update(id: number, updateUserDto: UpdateUserDto) {

@@ -1,0 +1,29 @@
+### Create Promo Code
+POST http://localhost:3000/promo-codes HTTP/1.1
+Content-Type: application/json
+
+{
+    "code": "SUMMER2026",
+    "discount": 15,
+    "expirationDate": "2026-08-31T23:59:59Z",
+    "userIds": [1, 2]
+}
+ 
+### Find All Promo Codes
+GET http://localhost:3000/promo-codes HTTP/1.1
+
+### Find One Promo Code
+GET http://localhost:3000/promo-codes/1 HTTP/1.1
+
+### Update Promo Code
+PATCH http://localhost:3000/promo-codes/1 HTTP/1.1
+Content-Type: application/json
+
+{
+    "code": "SUMMER2026",
+    "discount": 20,
+    "expirationDate": "2026-09-30T23:59:59Z"
+}
+
+### Delete Promo Code
+DELETE http://localhost:3000/promo-codes/1 HTTP/1.1
