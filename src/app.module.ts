@@ -11,6 +11,7 @@ import { DataSource } from 'typeorm';
 import { Product } from './products/entities/product.entity';
 import { OrderLine } from './order-lines/entities/order-line.entity';
 import { Order } from './orders/entities/order.entity';
+import { PromoCodesModule } from './promo-codes/promo-codes.module';
 
 @Module({
   imports: [    
@@ -24,7 +25,7 @@ import { Order } from './orders/entities/order.entity';
       entities: [User, Product,Order, OrderLine],
       synchronize: true,
     }),
-    UsersModule, OrdersModule, OrderLinesModule, ProductsModule
+    UsersModule, OrdersModule, OrderLinesModule, ProductsModule, PromoCodesModule
   ],
   controllers: [AppController],
   providers: [AppService],
