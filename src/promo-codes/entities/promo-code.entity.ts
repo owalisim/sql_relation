@@ -1,6 +1,7 @@
 import { User } from "src/users/entities/user.entity";
-import { Column, ManyToMany, PrimaryGeneratedColumn } from "typeorm";
+import { Column, Entity, ManyToMany, PrimaryGeneratedColumn } from "typeorm";
 
+@Entity()
 export class PromoCode {
     @PrimaryGeneratedColumn()
     id: number;

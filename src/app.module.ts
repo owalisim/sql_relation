@@ -12,6 +12,7 @@ import { Product } from './products/entities/product.entity';
 import { OrderLine } from './order-lines/entities/order-line.entity';
 import { Order } from './orders/entities/order.entity';
 import { PromoCodesModule } from './promo-codes/promo-codes.module';
+import { PromoCode } from './promo-codes/entities/promo-code.entity';
 
 @Module({
   imports: [    
@@ -22,7 +23,7 @@ import { PromoCodesModule } from './promo-codes/promo-codes.module';
       username: 'postgres',
       password: 'postgres',
       database: 'myapp2',
-      entities: [User, Product,Order, OrderLine],
+      entities: [User, Product,Order, OrderLine, PromoCode],
       synchronize: true,
     }),
     UsersModule, OrdersModule, OrderLinesModule, ProductsModule, PromoCodesModule

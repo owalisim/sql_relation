@@ -12,16 +12,16 @@ export class UsersService {
   ) {}
   
  async create(createUserDto: CreateUserDto) {
-    const user = await this.usersRepository.create(createUserDto);
+    const user =  this.usersRepository.create(createUserDto);
     return await this.usersRepository.save(user);
   }
 
    async findAll() {
-    return await this.usersRepository.find();
+    return await this.usersRepository.find({relations: ['orders']});
   }
 
   async findOne(id: number) {
-    return await this.usersRepository.findOneBy({ id });
+    return await this.usersRepository.findOne({ where: { id }, relations: ['orders'] });
   }
 
  async update(id: number, updateUserDto: UpdateUserDto) {

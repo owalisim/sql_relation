@@ -1,26 +1,36 @@
 import { Injectable } from '@nestjs/common';
 import { CreatePromoCodeDto } from './dto/create-promo-code.dto';
 import { UpdatePromoCodeDto } from './dto/update-promo-code.dto';
+import { InjectRepository } from '@nestjs/typeorm';
+import { PromoCode } from './entities/promo-code.entity';
+import { Repository } from 'typeorm';
 
 @Injectable()
 export class PromoCodesService {
-  create(createPromoCodeDto: CreatePromoCodeDto) {
-    return 'This action adds a new promoCode';
+  constructor(
+    @InjectRepository(PromoCode)
+    private promoCodeRepository: Repository<PromoCode>
+  ) {}
+
+  async create(createPromoCodeDto: CreatePromoCodeDto) {
+    const promoCode = this.promoCodeRepository.create(createPromoCodeDto);
+    return this.promoCodeRepository.save(promoCode);
   }
 
-  findAll() {
-    return `This action returns all promoCodes`;
+  async findAll() {
+    return this.promoCodeRepository.find({relations: ['users']});
   }
 
-  findOne(id: number) {
-    return `This action returns a #${id} promoCode`;
+  async findOne(id: number) {
+    return this.promoCodeRepository.findOne({ where: { id }, relations: ['users'] });
   }
 
-  update(id: number, updatePromoCodeDto: UpdatePromoCodeDto) {
-    return `This action updates a #${id} promoCode`;
+  async update(id: number, updatePromoCodeDto: UpdatePromoCodeDto) {
+    await this.promoCodeRepository.update(id, updatePromoCodeDto);
+    return this.findOne(id);
   }
 
-  remove(id: number) {
-    return `This action removes a #${id} promoCode`;
+  async remove(id: number) {
+    return this.promoCodeRepository.delete(id);
   }
 }
