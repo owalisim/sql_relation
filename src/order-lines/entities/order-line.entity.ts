@@ -10,6 +10,9 @@ export class OrderLine {
   @Column({ default: 1 })
   quantity: number;
 
+  @Column('decimal', { precision: 10, scale: 2 })
+  price_snapshot: number;
+
   @ManyToOne(() => Order, (order) => order.orderLines, { nullable: false, onDelete: 'CASCADE' })
   @JoinColumn({ name: 'orderId' })
   order: Order;

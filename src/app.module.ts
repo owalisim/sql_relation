@@ -7,7 +7,7 @@ import { OrderLinesModule } from './order-lines/order-lines.module';
 import { ProductsModule } from './products/products.module';
 import { User } from './users/entities/user.entity';
 import { TypeOrmModule } from '@nestjs/typeorm';
-import { DataSource, Or } from 'typeorm';
+import { DataSource } from 'typeorm';
 import { Product } from './products/entities/product.entity';
 import { OrderLine } from './order-lines/entities/order-line.entity';
 import { Order } from './orders/entities/order.entity';
@@ -20,7 +20,7 @@ import { Order } from './orders/entities/order.entity';
       port: 5432,
       username: 'postgres',
       password: 'postgres',
-      database: 'myapp',
+      database: 'myapp2',
       entities: [User, Product,Order, OrderLine],
       synchronize: true,
     }),
@@ -30,5 +30,7 @@ import { Order } from './orders/entities/order.entity';
   providers: [AppService],
 })
 export class AppModule {
-   constructor(private dataSource: DataSource) {}
+   constructor(private dataSource: DataSource) {
+    console.log('Data Source has been initialized!', this.dataSource.isInitialized);
+   }
 }

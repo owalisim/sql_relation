@@ -1,0 +1,40 @@
+### Create Order
+POST http://localhost:3000/orders HTTP/1.1
+Content-Type: application/json
+
+{
+    "userId": 1,
+    "orderLines": [
+        {
+            "productId": 2,
+            "quantity": 2
+        },
+        {
+            "productId": 3,
+            "quantity": 1
+        }
+    ]
+}
+
+### Find All Orders
+GET http://localhost:3000/orders HTTP/1.1
+
+### Find One Order
+GET http://localhost:3000/orders/1 HTTP/1.1
+
+### Update Order
+PATCH http://localhost:3000/orders/1 HTTP/1.1
+Content-Type: application/json
+
+{
+    "userId": 1,
+    "orderLineItems": [
+        {
+            "productId": 1,
+            "quantity": 3
+        }
+    ]
+}
+
+### Delete Order
+DELETE http://localhost:3000/orders/1 HTTP/1.1
