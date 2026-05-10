@@ -52,10 +52,10 @@ export class OrderLinesService {
     return orderLine;
   }
 
-  async findByOrderId(orderId: number) {
-    return await this.orderLineRepository.find({
-      where: { order: { id: orderId } },
-      relations: ['product'],
-    });
-  }
+  // async findByOrderId(orderId: number) {
+  //   return await this.orderLineRepository.find({
+  //     where: { order: { id: orderId } },
+  //     relations: ['product'],
+  //   });
+  // }
 }
