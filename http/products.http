@@ -1,0 +1,28 @@
+### Create Product
+POST http://localhost:3000/products HTTP/1.1
+Content-Type: application/json
+
+{
+    "name": "Laptop",
+    "price": 999.99,
+    "description": "High-performance laptop"
+}
+
+### Find All Products
+GET http://localhost:3000/products HTTP/1.1
+
+### Find One Product
+GET http://localhost:3000/products/1 HTTP/1.1
+
+### Update Product
+PATCH http://localhost:3000/products/1 HTTP/1.1
+Content-Type: application/json
+
+{
+    "name": "Gaming Laptop",
+    "price": 1299.99,
+    "description": "High-performance gaming laptop"
+}
+
+### Delete Product
+DELETE http://localhost:3000/products/1 HTTP/1.1
