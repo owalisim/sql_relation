@@ -20,6 +20,6 @@ export class User {
   @OneToMany(() => Order, (order) => order.user)
   orders: Order[];
 
-  @ManyToMany(() => PromoCode, (promoCode) => promoCode.users)
+  @ManyToMany(() => PromoCode, (promoCode) => promoCode.users, { onDelete: 'CASCADE' })
   promoCodes: PromoCode[];
 }

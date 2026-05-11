@@ -15,7 +15,7 @@ export class PromoCode {
     @Column()
     expirationDate: Date;
 
-    @ManyToMany(() => User, user => user.promoCodes)
+    @ManyToMany(() => User, user => user.promoCodes, { cascade: true })
     @JoinTable()
     users: User[];
 }
