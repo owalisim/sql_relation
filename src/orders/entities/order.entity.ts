@@ -11,7 +11,7 @@ export class Order {
   @JoinColumn({ name: 'userId' })
   user: User;
 
-  @OneToMany(() => OrderLine, (orderLine) => orderLine.order, { cascade: true })
+  @OneToMany(() => OrderLine, (orderLine) => orderLine.order, { cascade: true, orphanedRowAction: 'delete' })
   orderLines: OrderLine[];
 
    @CreateDateColumn()
