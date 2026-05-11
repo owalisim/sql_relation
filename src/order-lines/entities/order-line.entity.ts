@@ -14,10 +14,10 @@ export class OrderLine {
   price_snapshot: number;
 
   @ManyToOne(() => Order, (order) => order.orderLines, { nullable: false, onDelete: 'CASCADE' })
-  @JoinColumn({ name: 'orderId' })
+  @JoinColumn({ name: 'order_id', referencedColumnName: 'id' })
   order: Order;
 
   @ManyToOne(() => Product, (product) => product.orderLines, { nullable: false, eager: true })
-  @JoinColumn({ name: 'productId' })
+  @JoinColumn({ name: 'product_id', referencedColumnName: 'id' })
   product: Product;
 }

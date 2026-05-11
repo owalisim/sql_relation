@@ -8,7 +8,7 @@ export class Order {
   id: number;
   
   @ManyToOne(() => User, (user) => user.orders, { nullable: false, onDelete: 'CASCADE' })
-  @JoinColumn({ name: 'userId' })
+  @JoinColumn({ name: 'user_id', referencedColumnName: 'id' })
   user: User;
 
   @OneToMany(() => OrderLine, (orderLine) => orderLine.order, { cascade: true, orphanedRowAction: 'delete' })
