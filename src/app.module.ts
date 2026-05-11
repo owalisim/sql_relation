@@ -13,6 +13,8 @@ import { OrderLine } from './order-lines/entities/order-line.entity';
 import { Order } from './orders/entities/order.entity';
 import { PromoCodesModule } from './promo-codes/promo-codes.module';
 import { PromoCode } from './promo-codes/entities/promo-code.entity';
+import { UserProfile } from './users/entities/user-profile.entity';
+import { UserImages } from './users/entities/user-images.entity';
 
 @Module({
   imports: [    
@@ -22,8 +24,8 @@ import { PromoCode } from './promo-codes/entities/promo-code.entity';
       port: 5432,
       username: 'postgres',
       password: 'postgres',
-      database: 'myapp2',
-      entities: [User, Product,Order, OrderLine, PromoCode],
+      database: 'myapp3',
+      entities: [User,UserProfile, Product,Order, OrderLine, PromoCode, UserImages],
       synchronize: true,
     }),
     UsersModule, OrdersModule, OrderLinesModule, ProductsModule, PromoCodesModule
