@@ -22,7 +22,7 @@ export class User {
   @OneToMany(() => Order, (order) => order.user)
   orders: Order[];
 
-  @ManyToMany(() => PromoCode, (promoCode) => promoCode.users, { onDelete: 'CASCADE' })
+  @ManyToMany(() => PromoCode, (promoCode) => promoCode.users)
   promoCodes: PromoCode[];
 
   @OneToOne(() => UserProfile, (profile) => profile.user, { cascade: true, nullable: true })
