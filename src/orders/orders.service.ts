@@ -63,11 +63,54 @@ export class OrdersService {
     return order;
   }
 
-  async update(id: number, updateOrderDto: UpdateOrderDto) {
-    await this.findOne(id);
-    await this.orderRepository.update(id, updateOrderDto);
-    return this.findOne(id);
+async update(id: number, updateOrderDto: UpdateOrderDto) {
+  const { userId, orderLines } = updateOrderDto;
+
+  const order = await this.orderRepository.findOne({
+    where: { id },
+    relations: ['orderLines'],
+  });
+  console.log('Existing order:', order);
+
+  if (!order) {
+    throw new NotFoundException(`Order with ID ${id} not found`);
   }
+
+  if (!orderLines || orderLines.length === 0) {
+    throw new BadRequestException(
+      'Order must contain at least one order line',
+    );
+  }
+
+  const orderLinesInstances: OrderLine[] = [];
+
+  for (const line of orderLines) {
+    const product = await this.productsService.findOne(
+      line.productId,
+    );
+
+    if (!product) {
+      throw new NotFoundException(
+        `Product with ID ${line.productId} not found`,
+      );
+    }
+
+    const orderLine = new OrderLine();
+    
+    orderLine.product = product;
+    orderLine.quantity = line.quantity;
+    orderLine.price_snapshot = Number(product.price);
+
+    orderLinesInstances.push(orderLine);
+  }
+
+  order.user = { id: userId } as any;
+  order.orderLines = orderLinesInstances;
+
+  await this.orderRepository.save(order);
+
+  return this.findOne(order.id);
+}
 
   async remove(id: number) {
     const order = await this.findOne(id);
