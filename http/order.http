@@ -36,5 +36,19 @@ Content-Type: application/json
     ]
 }
 
+### Update Order Lines
+PATCH http://localhost:3000/orders/8/order-lines HTTP/1.1
+Content-Type: application/json
+
+{
+    "orderLines": [
+        {
+            "orderLineId": null,
+            "productId": 1,
+            "quantity": 10
+        }
+    ]
+}
+
 ### Delete Order
 DELETE http://localhost:3000/orders/2 HTTP/1.1
